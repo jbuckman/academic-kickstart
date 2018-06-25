@@ -1,6 +1,6 @@
 +++
 title = "Neural Lattice Language Models"
-date = 2018-06-25T12:27:16Z
+date = 2018-06-03T12:27:16Z
 draft = false
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
