@@ -1,7 +1,7 @@
 +++
 # Recent and Upcoming Talks widget.
 widget = "talks"
-active = true
+active = false
 date = 2016-04-20T00:00:00
 
 title = "Recent & Upcoming Talks"
@@ -17,8 +17,6 @@ count = 10
 #   0 = Simple
 #   1 = Detailed
 list_format = 0
-
-active = false
 
 +++
 
