@@ -18,8 +18,8 @@ authors = ["*Jacob Buckman*", "*Aurko Roy*", "Colin Raffel", "Ian Goodfellow"]
 publication_types = ["1"]
 
 # Publication name and optional abbreviated version.
-publication = ""
-publication_short = ""
+publication = "International Conference on Learning Representations"
+publication_short = "ICLR"
 
 # Abstract and optional shortened version.
 abstract = "It is well known that it is possible to construct “adversarial examples” for neural  networks: inputs which are misclassified by the network yet indistinguishable  from true data. We propose a simple modification to standard neural network architectures,  thermometer encoding, which significantly increases the robustness  of the network to adversarial examples. We demonstrate this robustness with experiments  on the MNIST, CIFAR-10, CIFAR-100, and SVHN datasets, and show  that models with thermometer-encoded inputs consistently have higher accuracy  on adversarial examples, without decreasing generalization. State-of-the-art accuracy  under the strongest known white-box attack was increased from 93.20% to  94.30% on MNIST and 50.00% to 79.16% on CIFAR-10. We explore the properties  of these networks, providing evidence that thermometer encodings help neural  networks to find more-non-linear decision boundaries."

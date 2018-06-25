@@ -18,8 +18,8 @@ authors = ["Jacob Buckman", "Graham Neubig"]
 publication_types = ["2"]
 
 # Publication name and optional abbreviated version.
-publication = ""
-publication_short = ""
+publication = "Transactions of the Association for Computational Linguistics"
+publication_short = "TACL"
 
 # Abstract and optional shortened version.
 abstract = "In this work, we propose a new language modeling paradigm that has the ability to perform both prediction and moderation of information flow at multiple granularities: neural lattice language models. These models construct a lattice of possible paths through a sentence and marginalize across this lattice to calculate sequence probabilities or optimize parameters. This approach allows us to seamlessly incorporate linguistic intuitions - including polysemy and existence of multi-word lexical items - into our language model. Experiments on multiple language modeling tasks show that English neural lattice language models that utilize polysemous embeddings are able to improve perplexity by 9.95% relative to a word-level baseline, and that a Chinese model that handles multi-character tokens is able to improve perplexity by 20.94% relative to a character-level baseline."
