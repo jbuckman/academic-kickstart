@@ -18,5 +18,7 @@ count = 10
 #   1 = Detailed
 list_format = 0
 
+active = false
+
 +++
 

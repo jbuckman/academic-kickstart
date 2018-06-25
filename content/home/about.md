@@ -12,29 +12,31 @@ weight = 5
   interests = [
     "Artificial Intelligence",
     "Computational Linguistics",
-    "Information Retrieval"
+    "Reinforcement Learning",
+    "Deep Learning"
   ]
 
 # List your qualifications (such as academic degrees).
-[[education.courses]]
-  course = "PhD in Artificial Intelligence"
-  institution = "Stanford University"
-  year = 2012
+#[[education.courses]]
+#  course = "PhD in Computer Science"
+#  institution = "Johns Hopkins University"
+#  year = 2012
 
 [[education.courses]]
-  course = "MEng in Artificial Intelligence"
-  institution = "Massachusetts Institute of Technology"
-  year = 2009
+  course = "MSc in Language Technologies"
+  institution = "Carnegie Mellon University"
+  year = 2017
 
 [[education.courses]]
-  course = "BSc in Artificial Intelligence"
-  institution = "Massachusetts Institute of Technology"
-  year = 2008
+  course = "BSc in Computer Science"
+  institution = "Carnegie Mellon University"
+  year = 2017
  
 +++
 
 # Biography
 
-Lena Smith is a professor of artificial intelligence at the Stanford AI Lab. Her research interests include distributed robotics, mobile computing and programmable matter. She leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate. 
+Hello there!
+I'm Jacob Buckman, a 2017-2018 Google AI Resident.
+My research is focused on deep learning, specializing in natural language processing and reinforcement learning.
+I'm interested in how artificial agents can learn to understand their environment, and how that knowledge can be effectively communicated to other agents.
