@@ -1,5 +1,5 @@
 +++
-title = "Neural Lattice Language Models"
+title = ""
 date = 2018-06-03T12:27:16Z
 draft = false
 

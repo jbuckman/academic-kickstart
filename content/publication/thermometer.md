@@ -1,5 +1,5 @@
 +++
-title = "Thermometer Encoding: One Hot Way to Resist Adversarial Examples"
+title = ""
 date = 2018-04-25T12:26:57Z
 draft = false
 

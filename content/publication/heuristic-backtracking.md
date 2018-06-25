@@ -1,5 +1,5 @@
 +++
-title = "Transition-Based Dependency Parsing with Heuristic Backtracking"
+title = ""
 date = 2016-11-25T12:26:43Z
 draft = false
 

@@ -1,6 +1,6 @@
 +++
-title = "Is Generator Conditioning Causally Related to GAN Performance?"
-date = 2018-07-12T12:27:43Z
+title = ""
+date = 2018-06-12T12:27:43Z
 draft = false
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
