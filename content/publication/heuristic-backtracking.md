@@ -1,5 +1,5 @@
 +++
-title = ""
+title = "Transition-Based Dependency Parsing with Heuristic Backtracking"
 date = 2016-11-25T12:26:43Z
 draft = false
 
@@ -18,7 +18,7 @@ authors = ["Jacob Buckman", "Miguel Ballesteros", "Chris Dyer"]
 publication_types = ["1"]
 
 # Publication name and optional abbreviated version.
-publication = "Transition-Based Dependency Parsing with Heuristic Backtracking"
+publication = ""
 publication_short = ""
 
 # Abstract and optional shortened version.

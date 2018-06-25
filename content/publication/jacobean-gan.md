@@ -1,5 +1,5 @@
 +++
-title = ""
+title = "Is Generator Conditioning Causally Related to GAN Performance?"
 date = 2018-06-12T12:27:43Z
 draft = false
 
@@ -18,7 +18,7 @@ authors = ["Augustus Odena", "Jacob Buckman", "Catherine Olsson", "Tom B. Brown"
 publication_types = ["1"]
 
 # Publication name and optional abbreviated version.
-publication = "Is Generator Conditioning Causally Related to GAN Performance?"
+publication = ""
 publication_short = ""
 
 # Abstract and optional shortened version.

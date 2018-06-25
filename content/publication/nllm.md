@@ -1,5 +1,5 @@
 +++
-title = ""
+title = "Neural Lattice Language Models"
 date = 2018-06-03T12:27:16Z
 draft = false
 
@@ -18,7 +18,7 @@ authors = ["Jacob Buckman", "Graham Neubig"]
 publication_types = ["2"]
 
 # Publication name and optional abbreviated version.
-publication = "Neural Lattice Language Models"
+publication = ""
 publication_short = ""
 
 # Abstract and optional shortened version.
