@@ -1,10 +1,10 @@
 +++
-title = "Nllm"
+title = "Neural Lattice Language Models"
 date = 2018-06-25T12:27:16Z
 draft = false
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
-authors = [""]
+authors = ["Jacob Buckman", "Graham Neubig"]
 
 # Publication type.
 # Legend:
@@ -15,15 +15,15 @@ authors = [""]
 # 4 = Report
 # 5 = Book
 # 6 = Book section
-publication_types = ["0"]
+publication_types = ["2"]
 
 # Publication name and optional abbreviated version.
-publication = ""
+publication = "Neural Lattice Language Models"
 publication_short = ""
 
 # Abstract and optional shortened version.
-abstract = ""
-abstract_short = ""
+abstract = "In this work, we propose a new language modeling paradigm that has the ability to perform both prediction and moderation of information flow at multiple granularities: neural lattice language models. These models construct a lattice of possible paths through a sentence and marginalize across this lattice to calculate sequence probabilities or optimize parameters. This approach allows us to seamlessly incorporate linguistic intuitions - including polysemy and existence of multi-word lexical items - into our language model. Experiments on multiple language modeling tasks show that English neural lattice language models that utilize polysemous embeddings are able to improve perplexity by 9.95% relative to a word-level baseline, and that a Chinese model that handles multi-character tokens is able to improve perplexity by 20.94% relative to a character-level baseline."
+abstract_short = "We propose a new language modeling paradigm that has the ability to perform both prediction and moderation of information flow at multiple granularities: neural lattice language models. These models construct a lattice of possible paths through a sentence and marginalize across this lattice to calculate sequence probabilities or optimize parameters. This approach allows us to seamlessly incorporate linguistic intuitions - including polysemy and existence of multi-word lexical items - into our language model."
 
 # Featured image thumbnail (optional)
 image_preview = ""
@@ -43,7 +43,7 @@ tags = []
 
 # Links (optional).
 url_pdf = ""
-url_preprint = ""
+url_preprint = "https://arxiv.org/abs/1803.05071"
 url_code = ""
 url_dataset = ""
 url_project = ""

@@ -1,10 +1,10 @@
 +++
-title = "Heuristic Backtracking"
-date = 2018-06-25T12:26:43Z
+title = "Transition-Based Dependency Parsing with Heuristic Backtracking"
+date = 2016-11-25T12:26:43Z
 draft = false
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
-authors = [""]
+authors = ["Jacob Buckman", "Miguel Ballesteros", "Chris Dyer"]
 
 # Publication type.
 # Legend:
@@ -15,15 +15,33 @@ authors = [""]
 # 4 = Report
 # 5 = Book
 # 6 = Book section
-publication_types = ["0"]
+publication_types = ["1"]
 
 # Publication name and optional abbreviated version.
-publication = ""
+publication = "Transition-Based Dependency Parsing with Heuristic Backtracking"
 publication_short = ""
 
 # Abstract and optional shortened version.
-abstract = ""
-abstract_short = ""
+abstract = "We introduce a novel approach to the decoding
+            problem in transition-based parsing: heuristic
+            backtracking. This algorithm uses a series
+            of partial parses on the sentence to locate
+            the best candidate parse, using confidence estimates
+            of transition decisions as a heuristic to
+            guide the starting points of the search. This
+            allows us to achieve a parse accuracy comparable
+            to beam search, despite using fewer transitions.
+            When used to augment a Stack-LSTM
+            transition-based parser, the parser shows an
+            unlabeled attachment score of up to 93.30%
+            for English and 87.61% for Chinese."
+abstract_short = "We introduce a novel approach to the decoding
+                  problem in transition-based parsing: heuristic
+                  backtracking. This algorithm uses a series
+                  of partial parses on the sentence to locate
+                  the best candidate parse, using confidence estimates
+                  of transition decisions as a heuristic to
+                  guide the starting points of the search."
 
 # Featured image thumbnail (optional)
 image_preview = ""
@@ -42,7 +60,7 @@ projects = []
 tags = []
 
 # Links (optional).
-url_pdf = ""
+url_pdf = "http://www.aclweb.org/anthology/D16-1254"
 url_preprint = ""
 url_code = ""
 url_dataset = ""

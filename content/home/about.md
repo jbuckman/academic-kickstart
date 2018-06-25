@@ -12,8 +12,7 @@ weight = 5
   interests = [
     "Artificial Intelligence",
     "Computational Linguistics",
-    "Reinforcement Learning",
-    "Deep Learning"
+    "Reinforcement Learning"
   ]
 
 # List your qualifications (such as academic degrees).
@@ -37,6 +36,6 @@ weight = 5
 # Biography
 
 Hello there!
-I'm Jacob Buckman, a 2017-2018 Google AI Resident.
-My research is focused on deep learning, specializing in natural language processing and reinforcement learning.
-I'm interested in how artificial agents can learn to understand their environment, and how that knowledge can be effectively communicated to other agents.
+I'm Jacob Buckman, currently a Google AI Resident in San Francisco.
+My research is focused on deep learning, especially natural language processing and reinforcement learning.
+I'm interested in how artificial agents can learn to understand their environment and how that knowledge can be effectively communicated to others.
