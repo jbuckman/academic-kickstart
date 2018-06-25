@@ -1,10 +1,10 @@
 +++
-title = ""
+title = "Thermometer Encoding: One Hot Way to Resist Adversarial Examples"
 date = 2018-04-25T12:26:57Z
 draft = false
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
-authors = ["Jacob Buckman*", "Aurko Roy*", "Colin Raffel", "Ian Goodfellow"]
+authors = ["*Jacob Buckman*", "*Aurko Roy*", "Colin Raffel", "Ian Goodfellow"]
 
 # Publication type.
 # Legend:
@@ -18,7 +18,7 @@ authors = ["Jacob Buckman*", "Aurko Roy*", "Colin Raffel", "Ian Goodfellow"]
 publication_types = ["1"]
 
 # Publication name and optional abbreviated version.
-publication = "Thermometer Encoding: One Hot Way to Resist Adversarial Examples"
+publication = ""
 publication_short = ""
 
 # Abstract and optional shortened version.
