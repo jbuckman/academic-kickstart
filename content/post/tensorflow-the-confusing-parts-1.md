@@ -40,7 +40,7 @@ This post is my attempt to fill this gap. Rather than focusing on a specific tas
 
 ### Target Audience
 
-This tutorial is intended for people who already have some experience with both programming and machine learning, and want to pick up Tensorflow. For example: a computer science student who wants to use Tensorflow in the final project of her ML class; a software engineer who has just been assigned to a project that involves deep learning; or a bewildered new Google AI Resident (shout-out to past Jacob). If you’d like a refresher on the basics, here are some good resources. Otherwise: let’s get started!
+This tutorial is intended for people who already have some experience with both programming and machine learning, and want to pick up Tensorflow. For example: a computer science student who wants to use Tensorflow in the final project of her ML class; a software engineer who has just been assigned to a project that involves deep learning; or a bewildered new Google AI Resident (shout-out to past Jacob). If you’d like a refresher on the basics, [here](https://ml.berkeley.edu/blog/2016/11/06/tutorial-1/) [are](http://colah.github.io/) [some](https://www.udacity.com/course/intro-to-machine-learning--ud120) [resources](https://www.coursera.org/learn/machine-learning). Otherwise: let’s get started!
 
 ------
 
