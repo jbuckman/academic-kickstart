@@ -391,7 +391,7 @@ import tensorflow as tf
 
 ### build the graph
 ## first set up the parameters
-m = tf.get_variable("m", [], initializer=tf.constant_initializer(0.)) ## notice that we initialize it with a float
+m = tf.get_variable("m", [], initializer=tf.constant_initializer(0.))
 b = tf.get_variable("b", [], initializer=tf.constant_initializer(0.))
 init = tf.global_variables_initializer()
 
@@ -471,7 +471,7 @@ train_op = optimizer.minimize(loss)
 
 But, now that you have a good understanding of the concepts underlying Tensorflow, this code is easy to explain! The first line, `optimizer = tf.train.GradientDescentOptimizer(1e-3)`, is not adding a node to the graph. It is simply creating a Python object that has useful helper functions. The second line, `train_op = optimizer.minimize(loss)`, is adding a node to the graph, and storing a pointer to it in variable `train_op`. The `train_op` node has no output, but has a very complicated side effect:
 
-`train_op` traces back through the computation path of its input, loss, looking for variable nodes. For each variable node it finds, it computes the gradient of that variable with respect to the loss. Then, it computes a new value for that variable: the current value minus the gradient times the learning rate. Finally, it performs an assign operation to update the value of the variable.
+`train_op` traces back through the computation path of its input, `loss`, looking for variable nodes. For each variable node it finds, it computes the gradient of that variable with respect to the loss. Then, it computes a new value for that variable: the current value minus the gradient times the learning rate. Finally, it performs an assign operation to update the value of the variable.
 
 So essentially, when we call `sess.run(train_op)`, it does a step of gradient descent on all of our variables for us. Of course, we also need to fill in the input and output placeholders with our feed_dict, and we also want to print the loss, because it’s handy for debugging.
 
