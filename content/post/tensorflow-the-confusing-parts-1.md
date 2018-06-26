@@ -561,10 +561,10 @@ Happy training!
 
 *Many thanks to Kathryn Rough, Katherine Lee, Sara Hooker, and Ludwig Schubert for all of their help and feedback when writing this post.*
 
-[^0]: [This Chainer documentation](https://docs.chainer.org/en/stable/guides/define_by_run.html) describes the difference between define-and-run and define-by-run.
+[^0]: [This page](https://docs.chainer.org/en/stable/guides/define_by_run.html) from the Chainer documentation describes the difference between define-and-run and define-by-run.
 
 [^1]: In general, I prefer to make sure I already have the entire graph in place when I create a session, and I follow that paradigm in my examples here. But you might see it done differently in other Tensorflow code.
 
 [^2]: Since the Tensorflow team is dedicated to backwards compatibility, there are several ways to create variables. In older code, it is common to also encounter the `tf.Variable()` syntax, which serves the same purpose.
 
-[^3]: [Name management can be made a bit easier with `tf.variable_scope()`](https://www.tensorflow.org/api_docs/python/tf/variable_scope). I will cover scoping in more detail In a future post!
+[^3]: Name management can be made a bit easier with `tf.variable_scope()`. I will cover scoping in more detail In a future post!
