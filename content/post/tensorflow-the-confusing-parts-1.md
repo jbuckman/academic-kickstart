@@ -56,7 +56,7 @@ Let’s walk through an example of how to build one. In the following figures, t
 
 ```python 
 import tensorflow as tf
-`
+```
 {{< figure src="/img/tfcp1/fig0.png" numbered="true" >}}
 
 Predictably, just importing Tensorflow does not give us an interesting computation graph. Just a lonely, empty global variable. But what about when we call a Tensorflow operation?
@@ -65,10 +65,10 @@ Predictably, just importing Tensorflow does not give us an interesting computati
 import tensorflow as tf
 two_node = tf.constant(2)
 print two_node
-`
+```
 ```python 
 Tensor("Const:0", shape=(), dtype=int32)
-`
+```
 {{< figure src="/img/tfcp1/fig1.png" numbered="true" >}}
 
 Would you look at that! We got ourselves a node. It contains the constant 2. Shocking, I know, coming from a function called tf.constant. When we print the variable, we see that it returns a tf.Tensor object, which is a pointer to the node that we just created. To emphasize this, here’s another example:
@@ -79,7 +79,7 @@ two_node = tf.constant(2)
 another_two_node = tf.constant(2)
 two_node = tf.constant(2)
 tf.constant(3)
-`
+```
 {{< figure src="/img/tfcp1/fig2.png" numbered="true" >}}
 
 Every time we call tf.constant, we create a new node in the graph. This is true even if the node is functionally identical to an existing node, even if we re-assign a node to the same variable, or  even if we don’t assign it to a variable at all.
@@ -93,11 +93,11 @@ another_pointer_at_two_node = two_node
 two_node = None
 print two_node
 print another_pointer_at_two_node
-`
+```
 ```python 
 None
 Tensor("Const:0", shape=(), dtype=int32)
-`
+```
 {[2]}
 
 Okay, let’s liven things up a bit:
@@ -107,7 +107,7 @@ import tensorflow as tf
 two_node = tf.constant(2)
 three_node = tf.constant(3)
 sum_node = two_node + three_node # equivalent to tf.add(two_node, three_node)
-`
+```
 {[2]-->[+]<--[3]}
 
 Now we’re talking - that’s a bona-fide computational graph we got there! Notice that the ```python +` operation is overloaded in Tensorflow, so adding two tensors together adds a node to the graph, even though it doesn’t seem like a Tensorflow operation on the surface.
