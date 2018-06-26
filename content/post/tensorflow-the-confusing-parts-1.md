@@ -17,7 +17,6 @@ categories = ["Tutorial"]
 image = ""
 caption = ""
 preview = true
-
 summary = "This tutorial is intended for people who already have some experience with both programming and machine learning, and want to pick up Tensorflow. Rather than focusing on a specific task, I take a more general approach, and go over some basic Tensorflow abstractions."
 
 +++
