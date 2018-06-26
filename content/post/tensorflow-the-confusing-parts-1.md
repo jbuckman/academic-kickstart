@@ -1,5 +1,5 @@
 +++
-title = "Tensorflow the Confusing Parts 1"
+title = "Tensorflow for ML Researchers: The Confusing Parts"
 date = 2018-06-25T14:53:44Z
 draft = false
 
@@ -19,8 +19,6 @@ caption = ""
 preview = true
 
 +++
-
-# Tensorflow for ML Researchers: The Confusing Parts
 
 Click here to skip the intro and dive right in
 
@@ -56,26 +54,26 @@ So: what is a computation graph? Essentially, it’s a global data structure: a 
 
 Let’s walk through an example of how to build one. In the following figures, the top half is the code we ran and its output, and the bottom half is the resulting computation graph.
 
-`
+```python 
 import tensorflow as tf
 `
 {{< figure src="/img/tfcp1/fig0.png" numbered="true" >}}
 
 Predictably, just importing Tensorflow does not give us an interesting computation graph. Just a lonely, empty global variable. But what about when we call a Tensorflow operation?
 
-`
+```python 
 import tensorflow as tf
 two_node = tf.constant(2)
 print two_node
 `
-`
+```python 
 Tensor("Const:0", shape=(), dtype=int32)
 `
 {{< figure src="/img/tfcp1/fig1.png" numbered="true" >}}
 
 Would you look at that! We got ourselves a node. It contains the constant 2. Shocking, I know, coming from a function called tf.constant. When we print the variable, we see that it returns a tf.Tensor object, which is a pointer to the node that we just created. To emphasize this, here’s another example:
 
-`
+```python 
 import tensorflow as tf
 two_node = tf.constant(2)
 another_two_node = tf.constant(2)
@@ -88,7 +86,7 @@ Every time we call tf.constant, we create a new node in the graph. This is true 
 
 In contrast, if you make a new variable and set it equal to an existing node, you are just copying the pointer to that node and nothing is added to the graph:
 
-`
+```python 
 import tensorflow as tf
 two_node = tf.constant(2)
 another_pointer_at_two_node = two_node
@@ -96,7 +94,7 @@ two_node = None
 print two_node
 print another_pointer_at_two_node
 `
-`
+```python 
 None
 Tensor("Const:0", shape=(), dtype=int32)
 `
@@ -104,7 +102,7 @@ Tensor("Const:0", shape=(), dtype=int32)
 
 Okay, let’s liven things up a bit:
 
-`
+```python 
 import tensorflow as tf
 two_node = tf.constant(2)
 three_node = tf.constant(3)
@@ -112,21 +110,21 @@ sum_node = two_node + three_node # equivalent to tf.add(two_node, three_node)
 `
 {[2]-->[+]<--[3]}
 
-Now we’re talking - that’s a bona-fide computational graph we got there! Notice that the `+` operation is overloaded in Tensorflow, so adding two tensors together adds a node to the graph, even though it doesn’t seem like a Tensorflow operation on the surface.
+Now we’re talking - that’s a bona-fide computational graph we got there! Notice that the ```python +` operation is overloaded in Tensorflow, so adding two tensors together adds a node to the graph, even though it doesn’t seem like a Tensorflow operation on the surface.
 
-Okay, so `two_node` points to a node containing 2, `three_node` points to a node containing 3, and `sum_node` points to a node containing…`+`? What’s up with that? Shouldn’t it contain 5?
+Okay, so ```python two_node` points to a node containing 2, ```python three_node` points to a node containing 3, and ```python sum_node` points to a node containing…```python +`? What’s up with that? Shouldn’t it contain 5?
 
 As it turns out, no. Computational graphs contain only the steps of computation; they do not contain the results. At least….not yet!
 
 ## Second Key Abstraction: The Session
 
-If there were March Madness for misunderstood TensorFlow abstractions, the session would be the #1 seed every year. It has that dubious honor due to being both unintuitively named and universally present -- nearly every Tensorflow program explicitly invokes `tf.Session()` at least once. 
+If there were March Madness for misunderstood TensorFlow abstractions, the session would be the #1 seed every year. It has that dubious honor due to being both unintuitively named and universally present -- nearly every Tensorflow program explicitly invokes ```python tf.Session()` at least once. 
 
 The role of the session is to handle the memory allocation and optimization that allows us to actually perform the computations specified by a graph. You can think of the computation graph as a “template” for the computations we want to do: it lays out all the steps. In order to make use of the graph, we also need to make a session, which allows us to actually do things; for example, going through the template node-by-node to allocate a bunch of memory for storing computation outputs. In order to do any computation with Tensorflow, you need both a graph and a session.
 
 The session contains a pointer to the global graph, which is constantly updated with pointers to all nodes. That means it doesn’t really matter whether you create the session before or after you create the nodes. *{Footnote: In general, I prefer to make sure I already have the entire graph in place when I create a session, and I follow that paradigm in my examples here. But you might see it done differently in other Tensorflow code.}
 
-After creating your session object, you can use `sess.run(node)` to return the value of a node, and Tensorflow performs all computations necessary to determine that value.
+After creating your session object, you can use ```python sess.run(node)` to return the value of a node, and Tensorflow performs all computations necessary to determine that value.
 
 `
 import tensorflow as tf
