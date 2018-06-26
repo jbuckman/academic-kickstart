@@ -1,5 +1,5 @@
 +++
-title = "Tensorflow: The Confusing Parts"
+title = "Tensorflow: The Confusing Parts (1)"
 date = 2018-06-25T14:53:44Z
 draft = false
 
@@ -20,19 +20,19 @@ preview = true
 
 +++
 
-[Click here to skip the intro and dive right in](#understanding-tensorflow)
+[Click here to skip the intro and dive right in!](#understanding-tensorflow-abstractions)
 
-## Introduction
+# Introduction
 
 ### What is this? Who are you?
 
-I’m Jacob, a Google AI Resident. When I started the residency program in the summer of 2017, I had a lot of experience programming, and a good understanding of machine learning, but I had never used Tensorflow before. I figured that given my background I’d be able to pick it up quickly.  To my surprise, the learning curve was fairly steep, and even months into the residency, I would occasionally find myself confused about how to turn ideas into Tensorflow code. I’m writing this blog post as a message-in-a-bottle to my former self: it’s the introduction that I wish I had been given before starting on my journey. Hopefully, it will also be a helpful resource for others.
+I’m Jacob, a [Google AI Resident](https://ai.google/research/join-us/ai-residency/). When I started the residency program in the summer of 2017, I had a lot of experience programming, and a good understanding of machine learning, but I had never used Tensorflow before. I figured that given my background I’d be able to pick it up quickly.  To my surprise, the learning curve was fairly steep, and even months into the residency, I would occasionally find myself confused about how to turn ideas into Tensorflow code. I’m writing this blog post as a message-in-a-bottle to my former self: it’s the introduction that I wish I had been given before starting on my journey. Hopefully, it will also be a helpful resource for others.
 
-### Introduction
+### What was missing?
 
-In the three years since its release, Tensorflow has cemented itself as a cornerstone of the deep learning ecosystem. However, it can be non-intuitive for beginners, especially compared to define-by-run neural network libraries like PyTorch or DyNet.[^0]
+In the three years since its release, [Tensorflow has cemented itself as a cornerstone of the deep learning ecosystem](https://github.com/thedataincubator/data-science-blogs/blob/master/output/DL_libraries_final_Rankings.csv). However, it can be non-intuitive for beginners, especially compared to define-by-run neural network libraries like [PyTorch](https://pytorch.org/) or [DyNet](dynet.io).[^0]
 
-Many introductory Tensorflow tutorials exist, for doing everything from linear regression, to classifying MNIST, to state-of-the-art translation. These concrete, practical guides are great resources for getting Tensorflow projects up and running, and can serve as jumping-off points for similar projects. But for the people who are working on applications for which a good tutorial does not exist, or who want to do something totally off the beaten path (as is common in research), Tensorflow can definitely feel frustrating at first.
+Many introductory Tensorflow tutorials exist, for doing everything from [linear regression](https://www.tensorflow.org/tutorials/wide), to [classifying MNIST](https://www.tensorflow.org/tutorials/layers), to [machine translation](https://www.tensorflow.org/tutorials/seq2seq). These concrete, practical guides are great resources for getting Tensorflow projects up and running, and can serve as jumping-off points for similar projects. But for the people who are working on applications for which a good tutorial does not exist, or who want to do something totally off the beaten path (as is common in research), Tensorflow can definitely feel frustrating at first.
 
 This post is my attempt to fill this gap. Rather than focusing on a specific task, I take a more general approach, and explain the fundamental abstractions underpinning Tensorflow. With a good grasp of these concepts, deep learning with Tensorflow becomes intuitive and straightforward.
 
@@ -40,9 +40,9 @@ This post is my attempt to fill this gap. Rather than focusing on a specific tas
 
 This tutorial is intended for people who already have some experience with both programming and machine learning, and want to pick up Tensorflow. For example: a computer science student who wants to use Tensorflow in the final project of her ML class; a software engineer who has just been assigned to a project that involves deep learning; or a bewildered new Google AI Resident (shout-out to past Jacob). If you’d like a refresher on the basics, here are some good resources. Otherwise: let’s get started!
 
-------
+======
 
-## Understanding Tensorflow
+# Understanding Tensorflow Abstractions
 
 ### Tensorflow Is Not A Normal Python Library
 
@@ -63,27 +63,27 @@ Let’s walk through an example of how to build one. In the following figures, t
 ```python 
 import tensorflow as tf
 ```
-####### Graph:
+###### Graph:
 {{< figure src="/img/tfcp1/fig0.png" numbered="true" width="300px">}}
 
 Predictably, just importing Tensorflow does not give us an interesting computation graph. Just a lonely, empty global variable. But what about when we call a Tensorflow operation?
 
-####### Code:
+###### Code:
 ```python 
 import tensorflow as tf
 two_node = tf.constant(2)
 print two_node
 ```
-####### Output:
+###### Output:
 ```python 
 Tensor("Const:0", shape=(), dtype=int32)
 ```
-####### Graph:
+###### Graph:
 {{< figure src="/img/tfcp1/fig1.png" numbered="true" width="300px">}}
 
 Would you look at that! We got ourselves a node. It contains the constant 2. Shocking, I know, coming from a function called `tf.constant`. When we print the variable, we see that it returns a `tf.Tensor` object, which is a pointer to the node that we just created. To emphasize this, here’s another example:
 
-####### Code:
+###### Code:
 ```python 
 import tensorflow as tf
 two_node = tf.constant(2)
@@ -91,14 +91,14 @@ another_two_node = tf.constant(2)
 two_node = tf.constant(2)
 tf.constant(3)
 ```
-####### Graph:
+###### Graph:
 {{< figure src="/img/tfcp1/fig2.png" numbered="true" width="300px">}}
 
 Every time we call `tf.constant`, we create a new node in the graph. This is true even if the node is functionally identical to an existing node, even if we re-assign a node to the same variable, or  even if we don’t assign it to a variable at all.
 
 In contrast, if you make a new variable and set it equal to an existing node, you are just copying the pointer to that node and nothing is added to the graph:
 
-####### Code:
+###### Code:
 ```python 
 import tensorflow as tf
 two_node = tf.constant(2)
@@ -107,24 +107,24 @@ two_node = None
 print two_node
 print another_pointer_at_two_node
 ```
-####### Output:
+###### Output:
 ```python 
 None
 Tensor("Const:0", shape=(), dtype=int32)
 ```
-####### Graph:
+###### Graph:
 {{< figure src="/img/tfcp1/fig3.png" numbered="true" width="300px">}}
 
 Okay, let’s liven things up a bit:
 
-####### Code:
+###### Code:
 ```python 
 import tensorflow as tf
 two_node = tf.constant(2)
 three_node = tf.constant(3)
 sum_node = two_node + three_node ## equivalent to tf.add(two_node, three_node)
 ```
-####### Graph:
+###### Graph:
 {{< figure src="/img/tfcp1/fig4.png" numbered="true" width="300px">}}
 
 Now we’re talking - that’s a bona-fide computational graph we got there! Notice that the `+` operation is overloaded in Tensorflow, so adding two tensors together adds a node to the graph, even though it doesn’t seem like a Tensorflow operation on the surface.
@@ -139,11 +139,11 @@ If there were March Madness for misunderstood TensorFlow abstractions, the sessi
 
 The role of the session is to handle the memory allocation and optimization that allows us to actually perform the computations specified by a graph. You can think of the computation graph as a “template” for the computations we want to do: it lays out all the steps. In order to make use of the graph, we also need to make a session, which allows us to actually do things; for example, going through the template node-by-node to allocate a bunch of memory for storing computation outputs. In order to do any computation with Tensorflow, you need both a graph and a session.
 
-The session contains a pointer to the global graph, which is constantly updated with pointers to all nodes. That means it doesn’t really matter whether you create the session before or after you create the nodes. *{Footnote: In general, I prefer to make sure I already have the entire graph in place when I create a session, and I follow that paradigm in my examples here. But you might see it done differently in other Tensorflow code.}
+The session contains a pointer to the global graph, which is constantly updated with pointers to all nodes. That means it doesn’t really matter whether you create the session before or after you create the nodes. [^1]
 
 After creating your session object, you can use `sess.run(node)` to return the value of a node, and Tensorflow performs all computations necessary to determine that value.
 
-####### Code:
+###### Code:
 ```python 
 import tensorflow as tf
 two_node = tf.constant(2)
@@ -152,16 +152,16 @@ sum_node = two_node + three_node
 sess = tf.Session()
 print sess.run(sum_node)
 ```
-####### Output:
+###### Output:
 ```python 
 5
 ```
-####### Graph:
+###### Graph:
 {{< figure src="/img/tfcp1/fig4.png" numbered="true" width="300px">}}
 
 Wonderful! We can also pass a list, `sess.run([node1, node2,...])`, and have it return multiple outputs:
 
-####### Code:
+###### Code:
 ```python 
 import tensorflow as tf
 two_node = tf.constant(2)
@@ -170,11 +170,11 @@ sum_node = two_node + three_node
 sess = tf.Session()
 print sess.run([two_node, sum_node])
 ```
-####### Output:
+###### Output:
 ```python 
 [2, 5]
 ```
-####### Graph:
+###### Graph:
 {{< figure src="/img/tfcp1/fig4.png" numbered="true" width="300px">}}
 
 In general, `sess.run()` calls tend to be one of the biggest TensorFlow bottlenecks, so the fewer times you call it, the better. Whenever possible, return multiple items in a single `sess.run()` call instead of making multiple calls.
@@ -185,39 +185,39 @@ The computations we’ve done so far have been boring: there is no opportunity t
 
 The most straightforward way to do this is with placeholders. A placeholder is a type of node that is designed to accept external input. 
 
-####### Code:
+###### Code:
 ```python 
 import tensorflow as tf
 input_placeholder = tf.placeholder(tf.int32)
 sess = tf.Session()
 print sess.run(input_placeholder)
 ```
-####### Output:
+###### Output:
 ```python
 Traceback (most recent call last):
 ...
 InvalidArgumentError (see above for traceback): You must feed a value for placeholder tensor 'Placeholder' with dtype int32
 	 [[Node: Placeholder = Placeholder[dtype=DT_INT32, shape=<unknown>, _device="/job:localhost/replica:0/task:0/device:CPU:0"]()]]
 ```
-####### Graph:
+###### Graph:
 {{< figure src="/img/tfcp1/fig5.png" numbered="true" width="300px">}}
 
 ...is a terrible example, since it throws an exception. Placeholders expect to be given a value. We didn’t supply one, so Tensorflow crashed.
 
 To provide a value, we use the feed_dict attribute of `sess.run()`.
 
-####### Code:
+###### Code:
 ```python 
 import tensorflow as tf
 input_placeholder = tf.placeholder(tf.int32)
 sess = tf.Session()
 print sess.run(input_placeholder, feed_dict={input_placeholder: 2})
 ```
-####### Output:
+###### Output:
 ```python
 2
 ```
-####### Graph:
+###### Graph:
 {{< figure src="/img/tfcp1/fig5.png" numbered="true" width="300px">}}
 
 
@@ -227,7 +227,7 @@ Much better. Notice the format of the dict passed into `feed_dict`. The keys sho
 
 Let’s try another example involving placeholders:
 
-####### Code:
+###### Code:
 ```python 
 import tensorflow as tf
 input_placeholder = tf.placeholder(tf.int32)
@@ -237,7 +237,7 @@ sess = tf.Session()
 print sess.run(three_node)
 print sess.run(sum_node)
 ```
-####### Output:
+###### Output:
 ```python
 3
 Traceback (most recent call last):
@@ -245,7 +245,7 @@ Traceback (most recent call last):
 InvalidArgumentError (see above for traceback): You must feed a value for placeholder tensor 'Placeholder_2' with dtype int32
 	 [[Node: Placeholder_2 = Placeholder[dtype=DT_INT32, shape=<unknown>, _device="/job:localhost/replica:0/task:0/device:CPU:0"]()]]
 ```
-####### Graph:
+###### Graph:
 {{< figure src="/img/tfcp1/fig6.png" numbered="true" width="300px">}}
 
 Why does the second call to `sess.run()` fail? And why does it raise an error related to `input_placeholder`, even though we are not evaluating `input_placeholder`? The answer lies in the final key Tensorflow abstraction: computation paths. Luckily, this one is very intuitive.
@@ -273,28 +273,28 @@ So far, we’ve seen two types of “no-ancestor” nodes: `tf.constant`, which 
 
 Understanding variables is essential to doing deep learning with Tensorflow, because the parameters of your model fall into this category. During training, you want to update your parameters at every step, via gradient descent; but during evaluation, you want to keep your parameters fixed, and pass a bunch of different test-set inputs into the model. More than likely, all of your model’s trainable parameters will be implemented as variables.
 
-To create variables, use `tf.get_variable()`.*{Footnote: Since the Tensorflow team is dedicated to backwards compatibility, there are several ways to create variables. In older code, it is common to also encounter the `tf.Variable()` syntax, which serves the same purpose.} The first two arguments to `tf.get_variable()` are required; the rest are optional. They are `tf.get_variable(name, shape)`. `name` is a string which uniquely identifies this variable object. It must be unique relative to the global graph, so be careful to keep track of all names you have used to ensure there are no duplicates.*{Footnote: Name management can be made a bit easier with `tf.variable_scope()`. I will cover scoping in more detail In a future post!}  `shape` is an array of integers corresponding to the shape of a tensor; the syntax of this is intuitive -- just one integer per dimension, in order. For example, a 3x8 matrix would have shape `[3, 8]`. To create a scalar, use an empty list as your shape: `[]`.
+To create variables, use `tf.get_variable()`[^2]. The first two arguments to `tf.get_variable()` are required; the rest are optional. They are `tf.get_variable(name, shape)`. `name` is a string which uniquely identifies this variable object. It must be unique relative to the global graph, so be careful to keep track of all names you have used to ensure there are no duplicates[^3]. `shape` is an array of integers corresponding to the shape of a tensor; the syntax of this is intuitive -- just one integer per dimension, in order. For example, a 3x8 matrix would have shape `[3, 8]`. To create a scalar, use an empty list as your shape: `[]`.
 
-####### Code:
+###### Code:
 ```python 
 import tensorflow as tf
 count_variable = tf.get_variable("count", [])
 sess = tf.Session()
 print sess.run(count_variable)
 ```
-####### Output:
+###### Output:
 ```python
 Traceback (most recent call last):
 ...
 tensorflow.python.framework.errors_impl.FailedPreconditionError: Attempting to use uninitialized value count
 	 [[Node: _retval_count_0_0 = _Retval[T=DT_FLOAT, index=0, _device="/job:localhost/replica:0/task:0/device:CPU:0"](count)]]
 ```
-####### Graph:
+###### Graph:
 {{< figure src="/img/tfcp1/fig10.png" numbered="true" width="300px">}}
 
 Alas, another exception. When a variable node is first created, it basically stores “null”, and any attempts to evaluate it will result in this exception. We can only evaluate a variable after putting a value into it first. There are two main ways to put a value into a variable: initializers and `tf.assign()`. Let’s look at `tf.assign()` first:
 
-####### Code:
+###### Code:
 ```python 
 import tensorflow as tf
 count_variable = tf.get_variable("count", [])
@@ -304,11 +304,11 @@ sess = tf.Session()
 sess.run(assign_node)
 print sess.run(count_variable)
 ```
-####### Output:
+###### Output:
 ```python
 0
 ```
-####### Graph:
+###### Graph:
 {{< figure src="/img/tfcp1/fig11.png" numbered="true" width="300px">}}
 
 `tf.assign(target, value)` is a node that has some unique properties compared to nodes we’ve seen so far:
@@ -319,14 +319,14 @@ print sess.run(count_variable)
 
 “Side effect” nodes underpin most of the Tensorflow deep learning workflow, so make sure you really understand what’s going on here. When we call `sess.run(assign_node)`, the computation path goes through `assign_node` and `zero_node`.
 
-####### Graph:
+###### Graph:
 {{< figure src="/img/tfcp1/fig12.png" numbered="true" width="300px">}}
 
 As computation flows through any node in the graph, it also enacts any side effects controlled by that node, shown in green. Due to the particular side effects of `tf.assign`, the memory associated with `count_variable` (which was previously “null”) is now permanently set to equal 0. This means that when we next call `sess.run(count_variable)`, we don’t throw any exceptions. Instead, we get a value of 0. Success!
 
 Next, let’s look at initializers:
 
-####### Code:
+###### Code:
 ```python 
 import tensorflow as tf
 const_init_node = tf.constant_initializer(0.)
@@ -334,21 +334,21 @@ count_variable = tf.get_variable("count", [], initializer=const_init_node)
 sess = tf.Session()
 print sess.run([count_variable])
 ```
-####### Output:
+###### Output:
 ```python
 Traceback (most recent call last):
 ...
 tensorflow.python.framework.errors_impl.FailedPreconditionError: Attempting to use uninitialized value count
 	 [[Node: _retval_count_0_0 = _Retval[T=DT_FLOAT, index=0, _device="/job:localhost/replica:0/task:0/device:CPU:0"](count)]]
 ```
-####### Graph:
+###### Graph:
 {{< figure src="/img/tfcp1/fig13.png" numbered="true" width="300px">}}
 
 Okay, what happened here? Why didn’t the initializer work?
 
 The answer lies in the split between sessions and graphs. We’ve set the `initializer` property of `get_variable` to point at our `const_init_node`, but that just added a new connection between nodes in the graph. We haven’t done anything about the root of the exception: *the memory associated with the variable node* (which is stored in the session, not the graph!) is still set to “null”. We need the session to tell the `const_init_node` to actually update the variable.
 
-####### Code:
+###### Code:
 ```python 
 import tensorflow as tf
 const_init_node = tf.constant_initializer(0.)
@@ -358,11 +358,11 @@ sess = tf.Session()
 sess.run(init)
 print sess.run(count_variable)
 ```
-####### Output:
+###### Output:
 ```python
 0.
 ```
-####### Graph:
+###### Graph:
 {{< figure src="/img/tfcp1/fig14.png" numbered="true" width="300px">}}
 
 To do this, we added another, special node: `init = tf.global_variables_initializer()`. Similarly to `tf.assign()`, this is a node with side effects. In contrast to `tf.assign()`, we don’t actually need to specify what its inputs are! `tf.global_variables_initializer()` will look at the global graph at the moment of its creation and automatically add dependencies to every `tf.initializer` in the graph. When we then evaluate it with `sess.run(init)`, it goes to each of the initializers and tells them to do their thang, initializing the variables and allowing us to run `sess.run(count_variable)` without an error.
@@ -384,7 +384,7 @@ In deep learning, the typical “inner loop” of training is as follows:
 
 Let’s put together a quick script for a toy linear regression problem:
 
-####### Code:
+###### Code:
 ```python 
 import tensorflow as tf
 
@@ -432,7 +432,7 @@ for update_i in range(100000):
 print "True parameters:     m=%.4f, b=%.4f" % (true_m, true_b)
 print "Learned parameters:  m=%.4f, b=%.4f" % tuple(sess.run([m, b]))
 ```
-####### Output:
+###### Output:
 ```python
 0 2.3205383
 1 0.5792742
@@ -480,7 +480,7 @@ As you start doing more complicated things with Tensorflow, you’re going to wa
 
 Let’s look at a simple example.
 
-####### Code:
+###### Code:
 ```python 
 import tensorflow as tf
 two_node = tf.constant(2)
@@ -489,13 +489,13 @@ sum_node = two_node + three_node
 sess = tf.Session()
 print sess.run(sum_node)
 ```
-####### Output:
+###### Output:
 ```python
 5
 ```
 This lets us see our overall answer, 5. But what if we want to inspect the intermediate values, `two_node` and `three_node`? One way to inspect the intermediate values is to add a return argument to `sess.run()` that points at each of the intermediate nodes you want to inspect, and then, after it has been returned, print it.
 
-####### Code:
+###### Code:
 ```python 
 import tensorflow as tf
 two_node = tf.constant(2)
@@ -506,14 +506,14 @@ answer, inspection = sess.run([sum_node, [two_node, three_node]])
 print inspection
 print answer
 ```
-####### Output:
+###### Output:
 ```python
 [2, 3]
 5
 ```
 This often works well, but as code becomes more complex, it can be a bit awkward. A more convenient approach is to use a `tf.Print` statement. Confusingly, `tf.Print` is actually a type of Tensorflow node, which has both output and side effects! It has two required arguments: a node to copy, and a list of things to print. The “node to copy” can be any node in the graph; `tf.Print` is an identity operation with respect to its “node to copy”, meaning that it outputs an exact copy of its input. But, it also prints all the current values in the “list of things to print” as a side effect.
 
-####### Code:
+###### Code:
 ```python 
 import tensorflow as tf
 two_node = tf.constant(2)
@@ -523,17 +523,17 @@ print_sum_node = tf.Print(sum_node, [two_node, three_node])
 sess = tf.Session()
 print sess.run(print_sum_node)
 ```
-####### Output:
+###### Output:
 ```python
 [2][3]
 5
 ```
-####### Graph:
+###### Graph:
 {{< figure src="/img/tfcp1/fig15.png" numbered="true" width="300px">}}
 
 One important, somewhat-subtle point about `tf.Print`: printing is a side effect. Like all other side effects, printing only occurs if the computation flows through the `tf.Print` node. If the `tf.Print` node is not in the path of the computation, nothing will print. In particular, even if the original node that your `tf.Print` node is copying is on the computation path, the `tf.Print` node itself might not be. Watch out for this issue! When it strikes (and it eventually will), it can be incredibly frustrating if you aren’t specifically looking for it. As a general rule, try to always create your `tf.Print` node immediately after creating the node that it copies.
 
-####### Code:
+###### Code:
 ```python 
 import tensorflow as tf
 two_node = tf.constant(2)
@@ -544,14 +544,14 @@ print_two_node = tf.Print(two_node, [two_node, three_node, sum_node])
 sess = tf.Session()
 print sess.run(sum_node)
 ```
-####### Output:
+###### Output:
 ```python
 5
 ```
-####### Graph:
+###### Graph:
 {{< figure src="/img/tfcp1/fig16.png" numbered="true" width="300px">}}
 
-## Conclusion
+# Conclusion
 
 Hopefully this post helped you get a better intuition for what Tensorflow is, how it works, and how to use it. At the end of the day, the concepts presented here are fundamental to all Tensorflow programs, but this is only scratching the surface. In your Tensorflow adventures, you will likely encounter all sorts of other fun things that you want to use: conditionals, iteration, distributed Tensorflow, variable scopes, saving & loading models, multi-graph, multi-session, and multi-core, data-loader queues, and much more. Many of these topics I will cover in future posts. But if you build on the ideas you learned here with the official documentation, some code examples, and just a pinch of deep learning magic, I’m sure you’ll be able to figure it out!
 
@@ -561,4 +561,10 @@ Happy training!
 
 *Many thanks to Kathryn Rough, Katherine Lee, Sara Hooker, and Ludwig Schubert for all of their help and feedback when writing this post.*
 
-[^0]: Click here for more information on the difference between define-and-run and define-by-run.
+[^0]: [This Chainer documentation](https://docs.chainer.org/en/stable/guides/define_by_run.html) describes the difference between define-and-run and define-by-run.
+
+[^1]: In general, I prefer to make sure I already have the entire graph in place when I create a session, and I follow that paradigm in my examples here. But you might see it done differently in other Tensorflow code.
+
+[^2]: Since the Tensorflow team is dedicated to backwards compatibility, there are several ways to create variables. In older code, it is common to also encounter the `tf.Variable()` syntax, which serves the same purpose.
+
+[^3]: [Name management can be made a bit easier with `tf.variable_scope()`](https://www.tensorflow.org/api_docs/python/tf/variable_scope). I will cover scoping in more detail In a future post!
