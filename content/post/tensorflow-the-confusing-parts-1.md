@@ -66,12 +66,13 @@ import tensorflow as tf
 two_node = tf.constant(2)
 print two_node
 ```
+Output:
 ```python 
 Tensor("Const:0", shape=(), dtype=int32)
 ```
-{{< figure src="/img/tfcp1/fig1.png" numbered="true" >}}
+{{< figure src="/img/tfcp1/fig1.png" numbered="true" width="100px">}}
 
-Would you look at that! We got ourselves a node. It contains the constant 2. Shocking, I know, coming from a function called tf.constant. When we print the variable, we see that it returns a tf.Tensor object, which is a pointer to the node that we just created. To emphasize this, here’s another example:
+Would you look at that! We got ourselves a node. It contains the constant 2. Shocking, I know, coming from a function called `tf.constant`. When we print the variable, we see that it returns a `tf.Tensor` object, which is a pointer to the node that we just created. To emphasize this, here’s another example:
 
 ```python 
 import tensorflow as tf
@@ -82,7 +83,7 @@ tf.constant(3)
 ```
 {{< figure src="/img/tfcp1/fig2.png" numbered="true" >}}
 
-Every time we call tf.constant, we create a new node in the graph. This is true even if the node is functionally identical to an existing node, even if we re-assign a node to the same variable, or  even if we don’t assign it to a variable at all.
+Every time we call `tf.constant`, we create a new node in the graph. This is true even if the node is functionally identical to an existing node, even if we re-assign a node to the same variable, or  even if we don’t assign it to a variable at all.
 
 In contrast, if you make a new variable and set it equal to an existing node, you are just copying the pointer to that node and nothing is added to the graph:
 
@@ -94,6 +95,7 @@ two_node = None
 print two_node
 print another_pointer_at_two_node
 ```
+Output:
 ```python 
 None
 Tensor("Const:0", shape=(), dtype=int32)
@@ -110,21 +112,21 @@ sum_node = two_node + three_node # equivalent to tf.add(two_node, three_node)
 ```
 {[2]-->[+]<--[3]}
 
-Now we’re talking - that’s a bona-fide computational graph we got there! Notice that the ```python +` operation is overloaded in Tensorflow, so adding two tensors together adds a node to the graph, even though it doesn’t seem like a Tensorflow operation on the surface.
+Now we’re talking - that’s a bona-fide computational graph we got there! Notice that the `+` operation is overloaded in Tensorflow, so adding two tensors together adds a node to the graph, even though it doesn’t seem like a Tensorflow operation on the surface.
 
-Okay, so ```python two_node` points to a node containing 2, ```python three_node` points to a node containing 3, and ```python sum_node` points to a node containing…```python +`? What’s up with that? Shouldn’t it contain 5?
+Okay, so `two_node` points to a node containing 2, `three_node` points to a node containing 3, and `sum_node` points to a node containing…`+`? What’s up with that? Shouldn’t it contain 5?
 
-As it turns out, no. Computational graphs contain only the steps of computation; they do not contain the results. At least….not yet!
+As it turns out, no. Computational graphs contain only the steps of computation; they do not contain the results. At least…not yet!
 
 ## Second Key Abstraction: The Session
 
-If there were March Madness for misunderstood TensorFlow abstractions, the session would be the #1 seed every year. It has that dubious honor due to being both unintuitively named and universally present -- nearly every Tensorflow program explicitly invokes ```python tf.Session()` at least once. 
+If there were March Madness for misunderstood TensorFlow abstractions, the session would be the #1 seed every year. It has that dubious honor due to being both unintuitively named and universally present -- nearly every Tensorflow program explicitly invokes `tf.Session()` at least once. 
 
 The role of the session is to handle the memory allocation and optimization that allows us to actually perform the computations specified by a graph. You can think of the computation graph as a “template” for the computations we want to do: it lays out all the steps. In order to make use of the graph, we also need to make a session, which allows us to actually do things; for example, going through the template node-by-node to allocate a bunch of memory for storing computation outputs. In order to do any computation with Tensorflow, you need both a graph and a session.
 
 The session contains a pointer to the global graph, which is constantly updated with pointers to all nodes. That means it doesn’t really matter whether you create the session before or after you create the nodes. *{Footnote: In general, I prefer to make sure I already have the entire graph in place when I create a session, and I follow that paradigm in my examples here. But you might see it done differently in other Tensorflow code.}
 
-After creating your session object, you can use ```python sess.run(node)` to return the value of a node, and Tensorflow performs all computations necessary to determine that value.
+After creating your session object, you can use `sess.run(node)` to return the value of a node, and Tensorflow performs all computations necessary to determine that value.
 
 `
 import tensorflow as tf
@@ -134,6 +136,7 @@ sum_node = two_node + three_node
 sess = tf.Session()
 print sess.run(sum_node)
 `
+Output:
 `
 5
 `
@@ -149,6 +152,7 @@ sum_node = two_node + three_node
 sess = tf.Session()
 print sess.run([two_node, sum_node])
 `
+Output:
 `
 [2, 5]
 `
@@ -168,6 +172,7 @@ input_placeholder = tf.placeholder(tf.int32)
 sess = tf.Session()
 print sess.run(input_placeholder)
 `
+Output:
 `
 Traceback (most recent call last):
 ...
@@ -186,6 +191,7 @@ input_placeholder = tf.placeholder(tf.int32)
 sess = tf.Session()
 print sess.run(input_placeholder, feed_dict={input_placeholder: 2})
 `
+Output:
 `
 2
 `
@@ -206,6 +212,7 @@ sess = tf.Session()
 print sess.run(three_node)
 print sess.run(sum_node)
 `
+Output:
 `
 3
 Traceback (most recent call last):
@@ -248,6 +255,7 @@ count_variable = tf.get_variable("count", [])
 sess = tf.Session()
 print sess.run(count_variable)
 `
+Output:
 `
 Traceback (most recent call last):
 ...
@@ -267,6 +275,7 @@ sess = tf.Session()
 sess.run(assign_node)
 print sess.run(count_variable)
 `
+Output:
 `
 0
 `
@@ -293,6 +302,7 @@ count_variable = tf.get_variable("count", [], initializer=const_init_node)
 sess = tf.Session()
 print sess.run([count_variable])
 `
+Output:
 `
 Traceback (most recent call last):
 ...
@@ -314,6 +324,7 @@ sess = tf.Session()
 sess.run(init)
 print sess.run(count_variable)
 `
+Output:
 `
 0.
 `
@@ -385,6 +396,7 @@ for update_i in range(100000):
 print "True parameters:     m=%.4f, b=%.4f" % (true_m, true_b)
 print "Learned parameters:  m=%.4f, b=%.4f" % tuple(sess.run([m, b]))
 `
+Output:
 `
 `
 0 2.3205383
@@ -441,6 +453,7 @@ sum_node = two_node + three_node
 sess = tf.Session()
 print sess.run(sum_node)
 `
+Output:
 `
 5
 `
@@ -456,6 +469,7 @@ answer, inspection = sess.run([sum_node, [two_node, three_node]])
 print inspection
 print answer
 `
+Output:
 `
 [2, 3]
 5
@@ -471,6 +485,7 @@ print_sum_node = tf.Print(sum_node, [two_node, three_node])
 sess = tf.Session()
 print sess.run(print_sum_node)
 `
+Output:
 `
 [2][3]
 5
@@ -488,6 +503,7 @@ print_two_node = tf.Print(two_node, [two_node, three_node, sum_node])
 sess = tf.Session()
 print sess.run(sum_node)
 `
+Output:
 `
 5
 `
