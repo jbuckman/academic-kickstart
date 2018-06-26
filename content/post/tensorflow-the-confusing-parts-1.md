@@ -552,6 +552,8 @@ print sess.run(sum_node)
 ###### Graph:
 {{< figure src="/img/tfcp1/fig16.png" numbered="true" width="300px">}}
 
+[Here](https://wookayin.github.io/tensorflow-talk-debugging/#1) is a great resource which provides additional practical debugging advice.
+
 # Conclusion
 
 Hopefully this post helped you get a better intuition for what Tensorflow is, how it works, and how to use it. At the end of the day, the concepts presented here are fundamental to all Tensorflow programs, but this is only scratching the surface. In your Tensorflow adventures, you will likely encounter all sorts of other fun things that you want to use: conditionals, iteration, distributed Tensorflow, variable scopes, saving & loading models, multi-graph, multi-session, and multi-core, data-loader queues, and much more. Many of these topics I will cover in future posts. But if you build on the ideas you learned here with the official documentation, some code examples, and just a pinch of deep learning magic, I’m sure you’ll be able to figure it out!
