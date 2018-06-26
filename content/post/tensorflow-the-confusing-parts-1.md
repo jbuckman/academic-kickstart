@@ -59,7 +59,7 @@ Let’s walk through an example of how to build one. In the following figures, t
 `
 import tensorflow as tf
 `
-{}
+{{< figure src="/img/tfcp1/fig0.png" numbered="true" >}}
 
 Predictably, just importing Tensorflow does not give us an interesting computation graph. Just a lonely, empty global variable. But what about when we call a Tensorflow operation?
 
@@ -71,7 +71,7 @@ print two_node
 `
 Tensor("Const:0", shape=(), dtype=int32)
 `
-{[2]}
+{{< figure src="/img/tfcp1/fig1.png" numbered="true" >}}
 
 Would you look at that! We got ourselves a node. It contains the constant 2. Shocking, I know, coming from a function called tf.constant. When we print the variable, we see that it returns a tf.Tensor object, which is a pointer to the node that we just created. To emphasize this, here’s another example:
 
@@ -82,7 +82,7 @@ another_two_node = tf.constant(2)
 two_node = tf.constant(2)
 tf.constant(3)
 `
-{[2][2][2][3]}
+{{< figure src="/img/tfcp1/fig2.png" numbered="true" >}}
 
 Every time we call tf.constant, we create a new node in the graph. This is true even if the node is functionally identical to an existing node, even if we re-assign a node to the same variable, or  even if we don’t assign it to a variable at all.
 
@@ -276,9 +276,9 @@ print sess.run(count_variable)
 
 `tf.assign(target, value)` is a node that has some unique properties compared to nodes we’ve seen so far:
 
-Identity operation. `tf.assign(target, value)` does not do any interesting computations, it is always just equal to `value`.
-Side effects. When computation “flows” through `assign_node`, side effects happen to other things in the graph. In this case, the side effect is to replace the value of `count_variable` with the value stored in `zero_node`. 
-Non-dependent edges. Even though the `count_variable` node and the `assign_node` are connected in the graph, neither is dependent on the other. This means computation will not flow back through that edge when evaluating either node. However, `assign_node` *is* dependent on `zero_node`; it needs to know what to assign.
+* Identity operation. `tf.assign(target, value)` does not do any interesting computations, it is always just equal to `value`.
+* Side effects. When computation “flows” through `assign_node`, side effects happen to other things in the graph. In this case, the side effect is to replace the value of `count_variable` with the value stored in `zero_node`. 
+* Non-dependent edges. Even though the `count_variable` node and the `assign_node` are connected in the graph, neither is dependent on the other. This means computation will not flow back through that edge when evaluating either node. However, `assign_node` *is* dependent on `zero_node`; it needs to know what to assign.
 
 “Side effect” nodes underpin most of the Tensorflow deep learning workflow, so make sure you really understand what’s going on here. When we call `sess.run(assign_node)`, the computation path goes through `assign_node` and `zero_node`.
 
@@ -332,10 +332,11 @@ You may encounter Tensorflow code with variable sharing. which involves creating
 At last: on to the actual deep learning! If you’re still with me, the remaining concepts should be extremely straightforward.
 
 In deep learning, the typical “inner loop” of training is as follows:
-Get an input and true_output
-Compute a “guess” based on the input and your parameters
-Compute a “loss” based on the difference between your guess and the true_output
-Update the parameters according to the gradient of the loss
+
+1. Get an input and true_output
+2. Compute a “guess” based on the input and your parameters
+3. Compute a “loss” based on the difference between your guess and the true_output
+4. Update the parameters according to the gradient of the loss
 
 Let’s put together a quick script for a toy linear regression problem:
 
