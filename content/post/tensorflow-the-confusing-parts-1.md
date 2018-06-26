@@ -28,7 +28,9 @@ I’m Jacob, a Google AI Resident. When I started the residency program in the s
 
 ## Introduction
 
-In the three years since its release, Tensorflow has cemented itself as a cornerstone of the deep learning ecosystem. However, it can be non-intuitive for beginners, especially compared to define-by-run neural network libraries like PyTorch or DyNet.*{Footnote: Click here for more information on the difference between define-and-run and define-by-run.} Many introductory Tensorflow tutorials exist, for doing everything from linear regression, to classifying MNIST, to state-of-the-art translation. These concrete, practical guides are great resources for getting Tensorflow projects up and running, and can serve as jumping-off points for similar projects. But for the people who are working on applications for which a good tutorial does not exist, or who want to do something totally off the beaten path (as is common in research), Tensorflow can definitely feel frustrating at first.
+In the three years since its release, Tensorflow has cemented itself as a cornerstone of the deep learning ecosystem. However, it can be non-intuitive for beginners, especially compared to define-by-run neural network libraries like PyTorch or DyNet.[^0]
+
+Many introductory Tensorflow tutorials exist, for doing everything from linear regression, to classifying MNIST, to state-of-the-art translation. These concrete, practical guides are great resources for getting Tensorflow projects up and running, and can serve as jumping-off points for similar projects. But for the people who are working on applications for which a good tutorial does not exist, or who want to do something totally off the beaten path (as is common in research), Tensorflow can definitely feel frustrating at first.
 
 This post is my attempt to fill this gap. Rather than focusing on a specific task, I take a more general approach, and explain the fundamental abstractions underpinning Tensorflow. With a good grasp of these concepts, deep learning with Tensorflow becomes intuitive and straightforward.
 
@@ -58,7 +60,7 @@ Let’s walk through an example of how to build one. In the following figures, t
 import tensorflow as tf
 ```
 ###### Graph:
-{{< figure src="/img/tfcp1/fig0.png" numbered="true" width="500px">}}
+{{< figure src="/img/tfcp1/fig0.png" numbered="true" width="300px">}}
 
 Predictably, just importing Tensorflow does not give us an interesting computation graph. Just a lonely, empty global variable. But what about when we call a Tensorflow operation?
 
@@ -73,7 +75,7 @@ print two_node
 Tensor("Const:0", shape=(), dtype=int32)
 ```
 ###### Graph:
-{{< figure src="/img/tfcp1/fig1.png" numbered="true" width="500px">}}
+{{< figure src="/img/tfcp1/fig1.png" numbered="true" width="300px">}}
 
 Would you look at that! We got ourselves a node. It contains the constant 2. Shocking, I know, coming from a function called `tf.constant`. When we print the variable, we see that it returns a `tf.Tensor` object, which is a pointer to the node that we just created. To emphasize this, here’s another example:
 
@@ -86,7 +88,7 @@ two_node = tf.constant(2)
 tf.constant(3)
 ```
 ###### Graph:
-{{< figure src="/img/tfcp1/fig2.png" numbered="true" width="500px">}}
+{{< figure src="/img/tfcp1/fig2.png" numbered="true" width="300px">}}
 
 Every time we call `tf.constant`, we create a new node in the graph. This is true even if the node is functionally identical to an existing node, even if we re-assign a node to the same variable, or  even if we don’t assign it to a variable at all.
 
@@ -107,7 +109,7 @@ None
 Tensor("Const:0", shape=(), dtype=int32)
 ```
 ###### Graph:
-{{< figure src="/img/tfcp1/fig3.png" numbered="true" width="500px">}}
+{{< figure src="/img/tfcp1/fig3.png" numbered="true" width="300px">}}
 
 Okay, let’s liven things up a bit:
 
@@ -119,7 +121,7 @@ three_node = tf.constant(3)
 sum_node = two_node + three_node # equivalent to tf.add(two_node, three_node)
 ```
 ###### Graph:
-{{< figure src="/img/tfcp1/fig4.png" numbered="true" width="500px">}}
+{{< figure src="/img/tfcp1/fig4.png" numbered="true" width="300px">}}
 
 Now we’re talking - that’s a bona-fide computational graph we got there! Notice that the `+` operation is overloaded in Tensorflow, so adding two tensors together adds a node to the graph, even though it doesn’t seem like a Tensorflow operation on the surface.
 
@@ -151,7 +153,7 @@ print sess.run(sum_node)
 5
 ```
 ###### Graph:
-{{< figure src="/img/tfcp1/fig4.png" numbered="true" width="500px">}}
+{{< figure src="/img/tfcp1/fig4.png" numbered="true" width="300px">}}
 
 Wonderful! We can also pass a list, `sess.run([node1, node2,...])`, and have it return multiple outputs:
 
@@ -169,7 +171,7 @@ print sess.run([two_node, sum_node])
 [2, 5]
 ```
 ###### Graph:
-{{< figure src="/img/tfcp1/fig4.png" numbered="true" width="500px">}}
+{{< figure src="/img/tfcp1/fig4.png" numbered="true" width="300px">}}
 
 In general, `sess.run()` calls tend to be one of the biggest TensorFlow bottlenecks, so the fewer times you call it, the better. Whenever possible, return multiple items in a single `sess.run()` call instead of making multiple calls.
 
@@ -194,7 +196,7 @@ InvalidArgumentError (see above for traceback): You must feed a value for placeh
 	 [[Node: Placeholder = Placeholder[dtype=DT_INT32, shape=<unknown>, _device="/job:localhost/replica:0/task:0/device:CPU:0"]()]]
 ```
 ###### Graph:
-{{< figure src="/img/tfcp1/fig5.png" numbered="true" width="500px">}}
+{{< figure src="/img/tfcp1/fig5.png" numbered="true" width="300px">}}
 
 ...is a terrible example, since it throws an exception. Placeholders expect to be given a value. We didn’t supply one, so Tensorflow crashed.
 
@@ -212,7 +214,7 @@ print sess.run(input_placeholder, feed_dict={input_placeholder: 2})
 2
 ```
 ###### Graph:
-{{< figure src="/img/tfcp1/fig5.png" numbered="true" width="500px">}}
+{{< figure src="/img/tfcp1/fig5.png" numbered="true" width="300px">}}
 
 
 Much better. Notice the format of the dict passed into `feed_dict`. The keys should be variables corresponding to placeholder nodes from the graph (which, as discussed earlier, really means *pointers* to placeholder nodes in the graph). The corresponding values are the data elements to assign to each placeholder -- typically scalars or Numpy arrays.
@@ -240,22 +242,22 @@ InvalidArgumentError (see above for traceback): You must feed a value for placeh
 	 [[Node: Placeholder_2 = Placeholder[dtype=DT_INT32, shape=<unknown>, _device="/job:localhost/replica:0/task:0/device:CPU:0"]()]]
 ```
 ###### Graph:
-{{< figure src="/img/tfcp1/fig6.png" numbered="true" width="500px">}}
+{{< figure src="/img/tfcp1/fig6.png" numbered="true" width="300px">}}
 
 Why does the second call to `sess.run()` fail? And why does it raise an error related to `input_placeholder`, even though we are not evaluating `input_placeholder`? The answer lies in the final key Tensorflow abstraction: computation paths. Luckily, this one is very intuitive.
 
 When we call `sess.run()` on a node that is dependent on other nodes in the graph, we need to compute the values of those nodes, too. And if those nodes have dependencies, we need to calculate those values (and so on and so on...) until we reach the “top” of the computation graph where nodes have no predecessors.
 
-Consider the computation path of sum_node:
+Consider the computation path of `sum_node`:
 
-{{< figure src="/img/tfcp1/fig7.png" numbered="true" width="500px">}}
-{{< figure src="/img/tfcp1/fig8.png" numbered="true" width="500px">}}
+{{< figure src="/img/tfcp1/fig7.png" numbered="true" width="300px">}}
+{{< figure src="/img/tfcp1/fig8.png" numbered="true" width="300px">}}
 
 All three nodes need to be evaluated to compute the value of `sum_node`. Crucially, this includes our un-filled placeholder and explains the exception!
 
 In contrast, consider the computation path of `three_node`:
 
-{{< figure src="/img/tfcp1/fig9.png" numbered="true" width="500px">}}
+{{< figure src="/img/tfcp1/fig9.png" numbered="true" width="300px">}}
 
 Due to the graph structure, we don’t need to compute all of the nodes in order to evaluate the one we want! Because we don’t need to evaluate `placeholder_node` to evaluate `three_node`, running `sess.run(three_node)` doesn’t raise an exception.
 
@@ -284,7 +286,7 @@ tensorflow.python.framework.errors_impl.FailedPreconditionError: Attempting to u
 	 [[Node: _retval_count_0_0 = _Retval[T=DT_FLOAT, index=0, _device="/job:localhost/replica:0/task:0/device:CPU:0"](count)]]
 ```
 ###### Graph:
-{{< figure src="/img/tfcp1/fig10.png" numbered="true" width="500px">}}
+{{< figure src="/img/tfcp1/fig10.png" numbered="true" width="300px">}}
 
 Alas, another exception. When a variable node is first created, it basically stores “null”, and any attempts to evaluate it will result in this exception. We can only evaluate a variable after putting a value into it first. There are two main ways to put a value into a variable: initializers and `tf.assign()`. Let’s look at `tf.assign()` first:
 
@@ -303,7 +305,7 @@ print sess.run(count_variable)
 0
 ```
 ###### Graph:
-{{< figure src="/img/tfcp1/fig11.png" numbered="true" width="500px">}}
+{{< figure src="/img/tfcp1/fig11.png" numbered="true" width="300px">}}
 
 `tf.assign(target, value)` is a node that has some unique properties compared to nodes we’ve seen so far:
 
@@ -314,7 +316,7 @@ print sess.run(count_variable)
 “Side effect” nodes underpin most of the Tensorflow deep learning workflow, so make sure you really understand what’s going on here. When we call `sess.run(assign_node)`, the computation path goes through `assign_node` and `zero_node`.
 
 ###### Graph:
-{{< figure src="/img/tfcp1/fig12.png" numbered="true" width="500px">}}
+{{< figure src="/img/tfcp1/fig12.png" numbered="true" width="300px">}}
 
 As computation flows through any node in the graph, it also enacts any side effects controlled by that node, shown in green. Due to the particular side effects of `tf.assign`, the memory associated with `count_variable` (which was previously “null”) is now permanently set to equal 0. This means that when we next call `sess.run(count_variable)`, we don’t throw any exceptions. Instead, we get a value of 0. Success!
 
@@ -336,7 +338,7 @@ tensorflow.python.framework.errors_impl.FailedPreconditionError: Attempting to u
 	 [[Node: _retval_count_0_0 = _Retval[T=DT_FLOAT, index=0, _device="/job:localhost/replica:0/task:0/device:CPU:0"](count)]]
 ```
 ###### Graph:
-{{< figure src="/img/tfcp1/fig13.png" numbered="true" width="500px">}}
+{{< figure src="/img/tfcp1/fig13.png" numbered="true" width="300px">}}
 
 Okay, what happened here? Why didn’t the initializer work?
 
@@ -357,7 +359,7 @@ print sess.run(count_variable)
 0.
 ```
 ###### Graph:
-{{< figure src="/img/tfcp1/fig14.png" numbered="true" width="500px">}}
+{{< figure src="/img/tfcp1/fig14.png" numbered="true" width="300px">}}
 
 To do this, we added another, special node: `init = tf.global_variables_initializer()`. Similarly to `tf.assign()`, this is a node with side effects. In contrast to `tf.assign()`, we don’t actually need to specify what its inputs are! `tf.global_variables_initializer()` will look at the global graph at the moment of its creation and automatically add dependencies to every `tf.initializer` in the graph. When we then evaluate it with `sess.run(init)`, it goes to each of the initializers and tells them to do their thang, initializing the variables and allowing us to run `sess.run(count_variable)` without an error.
 
@@ -428,7 +430,6 @@ print "Learned parameters:  m=%.4f, b=%.4f" % tuple(sess.run([m, b]))
 ```
 ###### Output:
 ```python
-```
 0 2.3205383
 1 0.5792742
 2 1.55254
@@ -469,7 +470,7 @@ But, now that you have a good understanding of the concepts underlying Tensorflo
 
 So essentially, when we call `sess.run(train_op)`, it does a step of gradient descent on all of our variables for us. Of course, we also need to fill in the input and output placeholders with our feed_dict, and we also want to print the loss, because it’s handy for debugging.
 
-## Debugging with tf.Print
+## Debugging with `tf.Print`
 
 As you start doing more complicated things with Tensorflow, you’re going to want to debug. In general, it’s quite hard to inspect what’s going on inside a computation graph. You can’t use a regular Python print statement, because you never have access to the values you want to print -- they are locked away inside the `sess.run()` call. To elaborate, suppose you want to inspect an intermediate value of a computation. Before the `sess.run()` call, the intermediate values do not exist yet. But when the `sess.run()` call returns, the intermediate values are gone!
 
@@ -524,7 +525,7 @@ print sess.run(print_sum_node)
 5
 ```
 ###### Graph:
-{{< figure src="/img/tfcp1/fig15.png" numbered="true" width="500px">}}
+{{< figure src="/img/tfcp1/fig15.png" numbered="true" width="300px">}}
 
 One important, somewhat-subtle point about `tf.Print`: printing is a side effect. Like all other side effects, printing only occurs if the computation flows through the `tf.Print` node. If the `tf.Print` node is not in the path of the computation, nothing will print. In particular, even if the original node that your `tf.Print` node is copying is on the computation path, the `tf.Print` node itself might not be. Watch out for this issue! When it strikes (and it eventually will), it can be incredibly frustrating if you aren’t specifically looking for it. As a general rule, try to always create your `tf.Print` node immediately after creating the node that it copies.
 
@@ -544,7 +545,7 @@ print sess.run(sum_node)
 5
 ```
 ###### Graph:
-{{< figure src="/img/tfcp1/fig16.png" numbered="true" width="500px">}}
+{{< figure src="/img/tfcp1/fig16.png" numbered="true" width="300px">}}
 
 ## Conclusion
 
@@ -554,4 +555,8 @@ Please give me feedback in the comments (or via email) if anything discussed in 
 
 Happy training!
 
-*I'd like to thank Kathryn Rough, Katherine Lee, Sara Hooker, and Ludwig Schubert for all of their help and feedback when writing this post.*
+*Many thanks to Kathryn Rough, Katherine Lee, Sara Hooker, and Ludwig Schubert for all of their help and feedback when writing this post.*
+
+-----
+
+[^0]: Click here for more information on the difference between define-and-run and define-by-run.
