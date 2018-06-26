@@ -55,7 +55,7 @@ Similarly to HTML, Tensorflow is a framework for representing a certain type of 
 
 ### First Key Abstraction: The Computation Graph
 
-In browsing the Tensorflow documentation, you’ve probably found oblique references to “graphs” and “nodes”. If you’re a particularly savvy browser, you may have even discovered this page, which covers the content I’m about to explain in a much more accurate and technical fashion. This section is a high-level walkthrough that captures the important intuition, while sacrificing some technical details.
+In browsing the Tensorflow documentation, you’ve probably found oblique references to “graphs” and “nodes”. If you’re a particularly savvy browser, you may have even discovered [this page](https://www.tensorflow.org/programmers_guide/graphs), which covers the content I’m about to explain in a much more accurate and technical fashion. This section is a high-level walkthrough that captures the important intuition, while sacrificing some technical details.
 
 So: what is a computation graph? Essentially, it’s a global data structure: a directed graph that captures instructions about how to calculate things. 
 
