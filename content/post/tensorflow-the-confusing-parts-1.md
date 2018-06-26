@@ -20,7 +20,7 @@ preview = true
 
 +++
 
-[Click here to skip the intro and dive right in!](#understanding-tensorflow-abstractions)
+[Click here to skip the intro and dive right in!](#understanding-tensorflow)
 
 # Introduction
 
@@ -42,7 +42,7 @@ This tutorial is intended for people who already have some experience with both 
 
 ======
 
-# Understanding Tensorflow Abstractions
+# Understanding Tensorflow
 
 ### Tensorflow Is Not A Normal Python Library
 
