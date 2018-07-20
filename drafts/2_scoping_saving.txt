@@ -1,0 +1,27 @@
+*This post is the second of a series; click here for the previous post, or here for a list of all posts in this series.*
+
+## Naming and Scoping
+
+### Naming Variables and Tensors
+
+As we discussed in Part 1, every time you call tf.get_variable(), you need to assign the variable a new, unique name. Actually, it goes deeper than that: every tensor in the graph gets a unique name too. The name can be accessed explicitly with the `.name` property of tensors, operations, and variables. For the vast majority of cases, the name will be created automatically for you; for example, a constant node will have the name "Const", and as you create more of them, they will become "Const_1", "Const_2", etc.{Footnote: There will also be a suffix ":device_num" added to the tensors. For now, that's always ":0"; using multiple devices will be covered in a future post.} You can also explicitly set the name of a node via the "name=" property, and the "name_*" suffix will still be added automatically:
+
+###### Code:
+```python
+import tensorflow as tf
+a = tf.constant(0)
+b = tf.constant(1)
+c = tf.constant(2, name="cool_const")
+d = tf.constant(3, name="cool_const")
+print a.name, b.name, c.name, d.name
+```
+###### Output
+```python
+Const:0 Const_1:0 cool_const:0 cool_const_1:0
+```
+
+Explicitly naming nodes is generally not really necessary, but it can be very useful when debugging. Oftentimes, when your Tensorflow code crashes, it will refer to a specific operation. If you have many operations of the same type, it can be tough to figure out which one is problematic. By explicitly naming each of your nodes, you can get much more informative error traces, and identify the issue more quickly.
+
+### Using Scopes
+
+As your graph gets more complex, it becomes difficult to name everything by hand. Tensorflow comes with a nice set of scoping tools to make it easier to organize your graphs by subdividing them into smaller chunks, with consistent names.
