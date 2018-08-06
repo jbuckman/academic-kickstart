@@ -4,7 +4,7 @@ date = 2018-06-12T12:27:43Z
 draft = false
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
-authors = ["Augustus Odena", "Jacob Buckman", "Catherine Olsson", "Tom B. Brown", "Christopher Olah", "Colin Raffel", "Ian Goodfellow"]
+authors = ["Augustus Odena", "**Jacob Buckman**", "Catherine Olsson", "Tom B. Brown", "Christopher Olah", "Colin Raffel", "Ian Goodfellow"]
 
 # Publication type.
 # Legend:
@@ -42,8 +42,8 @@ projects = []
 tags = []
 
 # Links (optional).
-url_pdf = ""
-url_preprint = "https://arxiv.org/abs/1802.08768"
+url_pdf = "http://proceedings.mlr.press/v80/odena18a.html"
+url_preprint = ""
 url_code = ""
 url_dataset = ""
 url_project = ""

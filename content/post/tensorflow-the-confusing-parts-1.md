@@ -3,10 +3,9 @@ title = "Tensorflow: The Confusing Parts (1)"
 date = 2018-06-25T14:53:44Z
 draft = false
 
-# Tags and categories
-# For example, use `tags = []` for no tags, or the form `tags = ["A Tag", "Another Tag"]` for one or more tags.
+authors = ["Jacob Buckman"]
 tags = ["Tensorflow"]
-categories = ["Tutorial"]
+categories = ["Tutorial", "TFTCP"]
 
 # Featured image
 # Place your image in the `static/img/` folder and reference its filename below, e.g. `image = "example.jpg"`.
@@ -370,7 +369,7 @@ To do this, we added another, special node: `init = tf.global_variables_initiali
 
 #### Variable Sharing
 
-You may encounter Tensorflow code with variable sharing. which involves creating a scope and setting “reuse=True”. I strongly recommend that you don’t use this in your own code. If you want to use a single variable in multiple places, simply keep track of your pointer to that variable's node programmatically, and re-use it when you need to. In other words, you should have only a single call of `tf.get_variable()` for each parameter you intend to store in memory.
+You may encounter Tensorflow code with variable sharing, which involves creating a scope and setting “reuse=True”. I strongly recommend that you don’t use this in your own code. If you want to use a single variable in multiple places, simply keep track of your pointer to that variable's node programmatically, and re-use it when you need to. In other words, you should have only a single call of `tf.get_variable()` for each parameter you intend to store in memory.
 
 ### Optimizers
 
@@ -512,7 +511,7 @@ print answer
 [2, 3]
 5
 ```
-This often works well, but as code becomes more complex, it can be a bit awkward. A more convenient approach is to use a `tf.Print` statement. Confusingly, `tf.Print` is actually a type of Tensorflow node, which has both output and side effects! It has two required arguments: a node to copy, and a list of things to print. The “node to copy” can be any node in the graph; `tf.Print` is an identity operation with respect to its “node to copy”, meaning that it outputs an exact copy of its input. But, it also prints all the current values in the “list of things to print” as a side effect.
+This often works well, but as code becomes more complex, it can be a bit awkward. A more convenient approach is to use a `tf.Print` statement. Confusingly, `tf.Print` is actually a type of Tensorflow node, which has both output and side effects! It has two required arguments: a node to copy, and a list of things to print. The “node to copy” can be any node in the graph; `tf.Print` is an identity operation with respect to its “node to copy”, meaning that it outputs an exact copy of its input. But, it also prints all the current values in the “list of things to print” as a side effect.[^4]
 
 ###### Code:
 ```python 
@@ -558,6 +557,8 @@ print sess.run(sum_node)
 
 Hopefully this post helped you get a better intuition for what Tensorflow is, how it works, and how to use it. At the end of the day, the concepts presented here are fundamental to all Tensorflow programs, but this is only scratching the surface. In your Tensorflow adventures, you will likely encounter all sorts of other fun things that you want to use: conditionals, iteration, distributed Tensorflow, variable scopes, saving & loading models, multi-graph, multi-session, and multi-core, data-loader queues, and much more. Many of these topics I will cover in future posts. But if you build on the ideas you learned here with the official documentation, some code examples, and just a pinch of deep learning magic, I’m sure you’ll be able to figure it out!
 
+For more detail on how these abstractions are implemented in Tensorflow, and how to interact with them, take a look at my [post on inspecting computational graphs](https://jacobbuckman.com/post/graph-inspection/).
+
 Please give me feedback in the comments (or via email) if anything discussed in this guide was unclear. And if you enjoyed this post, let me know what I should cover next!
 
 Happy training!
@@ -571,3 +572,5 @@ Happy training!
 [^2]: Since the Tensorflow team is dedicated to backwards compatibility, there are several ways to create variables. In older code, it is common to also encounter the `tf.Variable()` syntax, which serves the same purpose.
 
 [^3]: Name management can be made a bit easier with `tf.variable_scope()`. I will cover scoping in more detail In a future post!
+
+[^4]: Note that `tf.Print` is not compatible with Colab or IPython notebooks; it prints to the standard output, which is not shown in the notebook. There are various solutions on StackOverflow.

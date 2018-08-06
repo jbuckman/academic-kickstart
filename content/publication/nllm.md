@@ -4,7 +4,7 @@ date = 2018-06-03T12:27:16Z
 draft = false
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
-authors = ["Jacob Buckman", "Graham Neubig"]
+authors = ["**Jacob Buckman**", "Graham Neubig"]
 
 # Publication type.
 # Legend:
@@ -44,7 +44,7 @@ tags = []
 # Links (optional).
 url_pdf = ""
 url_preprint = "https://arxiv.org/abs/1803.05071"
-url_code = ""
+url_code = "https://github.com/jbuckman/neural-lattice-language-models"
 url_dataset = ""
 url_project = ""
 url_slides = ""
@@ -54,7 +54,7 @@ url_source = ""
 
 # Custom links (optional).
 #   Uncomment line below to enable. For multiple links, use the form `[{...}, {...}, {...}]`.
-# url_custom = [{name = "Custom Link", url = "http://example.org"}]
+url_custom = [{name = "Podcast", url = "https://soundcloud.com/nlp-highlights/63-neural-lattice-language-models-with-jacob-buckman"}]
 
 # Does this page contain LaTeX math? (true/false)
 math = false
