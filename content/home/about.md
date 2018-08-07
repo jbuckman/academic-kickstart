@@ -19,7 +19,7 @@ weight = 5
 #[[education.courses]]
 #  course = "PhD in Computer Science"
 #  institution = "Johns Hopkins University"
-#  year = 2012
+#  year = 20xx
 
 [[education.courses]]
   course = "MSc in Language Technologies"
@@ -36,6 +36,6 @@ weight = 5
 # Biography
 
 Hello there!
-I'm Jacob Buckman, currently a Google AI Resident in San Francisco.
+I'm Jacob Buckman, currently a PhD student at Johns Hopkins advised by [Jason Eisner](http://www.cs.jhu.edu/~jason/). From 2017-2018, I was a [Google AI Resident](https://ai.google/brain-team) in San Francisco.
 My research is focused on deep learning, especially natural language processing and reinforcement learning.
 I'm interested in how artificial agents can learn to understand their environment and how that knowledge can be effectively communicated to others.
