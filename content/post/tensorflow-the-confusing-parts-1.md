@@ -20,6 +20,8 @@ summary = "This tutorial is intended for people who already have some experience
 
 +++
 
+*This post is the first of a series; click [here](https://jacobbuckman.com/post/tensorflow-the-confusing-parts-2/) for the next post, or [here](https://jacobbuckman.com/categories/tftcp/) for a list of all posts in this series.*
+
 [Click here to skip the intro and dive right in!](#understanding-tensorflow)
 
 # Introduction
@@ -562,6 +564,8 @@ For more detail on how these abstractions are implemented in Tensorflow, and how
 Please give me feedback in the comments (or via email) if anything discussed in this guide was unclear. And if you enjoyed this post, let me know what I should cover next!
 
 Happy training!
+
+*This post is the first of a series; click [here](https://jacobbuckman.com/post/tensorflow-the-confusing-parts-2/) for the next post, or [here](https://jacobbuckman.com/categories/tftcp/) for a list of all posts in this series.*
 
 *Many thanks to Kathryn Rough, Katherine Lee, Sara Hooker, and Ludwig Schubert for all of their help and feedback when writing this post.*
 
