@@ -359,4 +359,4 @@ There are a few other advanced tricks, like automatic checkpointing and saving/r
 As always, please let me know in the comments or via email if I got anything wrong, or there is anything important I missed.
 Thanks for reading!
 
-[^0]: There will also be a suffix `:device_num` added to the tensor names. For now, that's always `:0`, meaning the tensor is stored on device 0; using multiple devices will be covered in a future post.
+[^0]: There will also be a suffix `:output_num` added to the tensor names. For now, that's always `:0`, since we are only using operations with a single output. See [this StackOverflow question for more info](https://stackoverflow.com/questions/40925652/in-tensorflow-whats-the-meaning-of-0-in-a-variables-name). Thanks Su Tang for pointing this out!
