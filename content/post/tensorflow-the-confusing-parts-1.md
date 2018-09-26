@@ -32,7 +32,7 @@ I’m Jacob, a [Google AI Resident](https://ai.google/research/join-us/ai-reside
 
 ### What was missing?
 
-In the three years since its release, [Tensorflow has cemented itself as a cornerstone of the deep learning ecosystem](https://github.com/thedataincubator/data-science-blogs/blob/master/output/DL_libraries_final_Rankings.csv). However, it can be non-intuitive for beginners, especially compared to define-by-run[^0] neural network libraries like [PyTorch](https://pytorch.org/) or [DyNet](dynet.io).
+In the three years since its release, [Tensorflow has cemented itself as a cornerstone of the deep learning ecosystem](https://github.com/thedataincubator/data-science-blogs/blob/master/output/DL_libraries_final_Rankings.csv). However, it can be non-intuitive for beginners, especially compared to define-by-run[^0] neural network libraries like [PyTorch](https://pytorch.org/) or [DyNet](http://dynet.io).
 
 Many introductory Tensorflow tutorials exist, for doing everything from [linear regression](https://www.tensorflow.org/tutorials/wide), to [classifying MNIST](https://www.tensorflow.org/tutorials/layers), to [machine translation](https://www.tensorflow.org/tutorials/seq2seq). These concrete, practical guides are great resources for getting Tensorflow projects up and running, and can serve as jumping-off points for similar projects. But for the people who are working on applications for which a good tutorial does not exist, or who want to do something totally off the beaten path (as is common in research), Tensorflow can definitely feel frustrating at first.
 
